@@ -1,0 +1,39 @@
+INSTALL PLUGIN simple_rewrite_plugin SONAME 'simple_rewrite_plugin.so';
+SHOW VARIABLES LIKE 'simple_rewrite_plugin%';
+Variable_name	Value
+simple_rewrite_plugin_action	rewrite
+simple_rewrite_plugin_pattern	
+simple_rewrite_plugin_query	
+SET simple_rewrite_plugin_pattern='(SET NAMES) \"?([[:alnum:]]+)\"?';
+SET NAMES utf8mb4;
+SET simple_rewrite_plugin_query='$1 $2$2';
+SHOW VARIABLES LIKE 'simple_rewrite_plugin%';
+Variable_name	Value
+simple_rewrite_plugin_action	rewrite
+simple_rewrite_plugin_pattern	(SET NAMES) "?([[:alnum:]]+)"?
+simple_rewrite_plugin_query	$1 $2$2
+Warnings:
+Note	1105	Query 'SHOW VARIABLES LIKE 'simple_rewrite_plugin%'' rewritten to 'SHOW VARIABLES LIKE 'simple_rewrite_plugin%'' by a query rewrite plugin
+Note	1105	Query 'SHOW WARNINGS' rewritten to 'SHOW WARNINGS' by a query rewrite plugin
+SET NAMES utf8mb4;
+ERROR 42000: Unknown character set: 'utf8mb4utf8mb4'
+SELECT 'Setting plugin action to "abort"';
+Setting plugin action to "abort"
+Setting plugin action to "abort"
+Warnings:
+Note	1105	Query 'SELECT 'Setting plugin action to "abort"'' rewritten to 'SELECT 'Setting plugin action to "abort"'' by a query rewrite plugin
+Note	1105	Query 'SHOW WARNINGS' rewritten to 'SHOW WARNINGS' by a query rewrite plugin
+SET simple_rewrite_plugin_action='abort';
+Warnings:
+Note	1105	Query 'SET simple_rewrite_plugin_action='abort'' rewritten to 'SET simple_rewrite_plugin_action='abort'' by a query rewrite plugin
+SHOW VARIABLES LIKE 'simple_rewrite_plugin%';
+Variable_name	Value
+simple_rewrite_plugin_action	abort
+simple_rewrite_plugin_pattern	(SET NAMES) "?([[:alnum:]]+)"?
+simple_rewrite_plugin_query	$1 $2$2
+SET NAMES utf8mb4;
+Got one of the listed errors
+# restart
+UNINSTALL PLUGIN simple_rewrite_plugin;
+Warnings:
+Warning	1620	Plugin is busy and will be uninstalled on shutdown
